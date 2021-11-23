@@ -2,7 +2,7 @@
     "files.exclude": {
       "node_modules": true,
       ".vscode": true,
-      ".gitignore": true,
+      ".gitignore": false,
       "package-lock.json": true,
       "public": true,
       "next.config.js": true,
