@@ -1,0 +1,12 @@
+{
+    "files.exclude": {
+      "node_modules": true,
+      ".vscode": true,
+      ".gitignore": true,
+      "package-lock.json": true,
+      "public": true,
+      "next.config.js": true,
+      ".eslintrc.json": true,
+      "README.md":true,
+    },
+}

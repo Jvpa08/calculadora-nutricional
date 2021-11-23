@@ -1,0 +1,22 @@
+.page {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('../assets/images/MadeiraBackGround.svg');
+}
+
+.calculator {
+  border: 3px solid var(--second-color);
+  padding: 2rem;
+  background-color: white;
+  z-index: 10;
+}
+
+.gender {
+  height: 30px;
+}
+
+.result {
+  margin-top: 2rem;
+}

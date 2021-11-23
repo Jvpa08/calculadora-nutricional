@@ -1,0 +1,38 @@
+.wrapperRadio {
+  display: inline-block;
+}
+
+.labelRadio,
+.label {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem auto;
+}
+
+.labelText {
+  width: 35%;
+}
+
+.labelTextRadio {
+  position: relative;
+  top: 2px;
+}
+
+.input {
+  border: 1px solid var(--fourth-color);
+  display: block;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: var(--fourth-color);
+  transition: 0.2s;
+  width: 8rem;
+}
+
+.input:hover,
+.input:focus {
+  outline: none;
+  border-color: var(--second-color);
+  background: white;
+  box-shadow: 0 0 0 3px #fea;
+}

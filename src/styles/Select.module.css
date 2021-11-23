@@ -1,0 +1,18 @@
+.wrapper {
+  margin: 0.5rem auto;
+}
+
+.select {
+  border: 1px solid var(--fourth-color);
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: var(--fourth-color);
+  transition: 0.2s;
+  width: 65%;
+}
+
+.labelText {
+  display: inline-block;
+  width: 35%;
+}
