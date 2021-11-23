@@ -1,0 +1,21 @@
+.home {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  gap: 2rem;
+}
+
+.home::before {
+  content: "";
+  background: url("../assets//images/ImageHome.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+@media (max-width: 40rem) {
+  .home {
+    grid-template-columns: 1fr;
+  }
+  .home::before {
+    display: none;
+  }
+}
