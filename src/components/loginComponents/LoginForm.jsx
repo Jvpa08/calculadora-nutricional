@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/LoginForm.module.css";
-import stylesBtn from '../../styles/Button.module.css';
+import stylesBtn from "../../styles/Button.module.css";
+import { auth } from "../../firebaseConfig";
 import { Link } from "react-router-dom";
 import UseForm from "../../hooks/useForm";
 import Input from "../Input";
@@ -9,17 +10,30 @@ import Button from "../Button";
 export default function LoginForm() {
   const email = UseForm();
   const password = UseForm();
+  const [err, setError] = React.useState({
+    errorCode: "",
+    errorMessage: "",
+  });
+
+  function loginWithEmail() {
+    auth
+      .createUserWithEmailAndPassword(email.value, password.value)
+      .then((userCredential) => {
+        console.log(userCredential.user);
+      })
+      .catch((error) => {
+        setError(
+          (err.errorCode = error.code),
+          (err.errorMessage = error.message)
+        );
+        console.log(err);
+      });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (email.validate() && password.validate()) {
-      // let result = await Api.googleLogin(); // Faço a autenticação com o Google
-      // if (result) {
-      // console.log("Deu certo");
-      // onReceiveGoogle(result.user);
-      // } else {
-      //  alert("error");
-      // }
+      loginWithEmail();
     }
   }
 
