@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import UseForm from "../../hooks/useForm";
 import Input from "../Input";
 import Button from "../Button";
+import Error from "../Error";
 
 import { UserContext } from "../../UserContext";
 
 export default function LoginForm() {
-  const email = UseForm();
+  const email = UseForm("email");
   const password = UseForm();
 
   const { loginWithEmail, error, loading } = React.useContext(UserContext);
@@ -32,7 +33,7 @@ export default function LoginForm() {
         ) : (
           <Button innerText="Entrar" />
         )}
-        {error ? <p>{error}</p> : null}
+        {error ? <Error error={error} /> : null}
       </form>
       <Link className={styles.perdeu} to="/login/perdeu">
         Perdeu a Senha?
@@ -40,7 +41,7 @@ export default function LoginForm() {
       <div className={styles.cadastro}>
         <h2 className={styles.subtitle}>Cadastre-se</h2>
         <p>Ainda não possui conta? Cadastre-se no site.</p>
-        <Link className={stylesBtn.button} to="/login/criar">
+        <Link className={stylesBtn.button} to="/criar">
           Cadastro
         </Link>
       </div>
