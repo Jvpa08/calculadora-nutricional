@@ -1,25 +1,24 @@
 import React from "react";
 import styles from "../../styles/LoginForm.module.css";
-import stylesBtn from '../../styles/Button.module.css';
+import stylesBtn from "../../styles/Button.module.css";
 import { Link } from "react-router-dom";
 import UseForm from "../../hooks/useForm";
 import Input from "../Input";
 import Button from "../Button";
+import Error from "../Error";
+
+import { UserContext } from "../../UserContext";
 
 export default function LoginForm() {
-  const email = UseForm();
+  const email = UseForm("email");
   const password = UseForm();
+
+  const { loginWithEmail, error, loading } = React.useContext(UserContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (email.validate() && password.validate()) {
-      // let result = await Api.googleLogin(); // Faço a autenticação com o Google
-      // if (result) {
-      // console.log("Deu certo");
-      // onReceiveGoogle(result.user);
-      // } else {
-      //  alert("error");
-      // }
+      loginWithEmail(email.value, password.value);
     }
   }
 
@@ -29,12 +28,12 @@ export default function LoginForm() {
       <form className={styles.form} onSubmit={handleSubmit}>
         <Input label="Usuário" type="text" name="username" {...email} />
         <Input label="Senha" type="password" name="password" {...password} />
-        {/* {loading ? (
-          <Button disabled>Carregando...</Button>
+        {loading ? (
+          <Button disabled innerText="Carregando..." />
         ) : (
-          <Button>Entrar</Button>
-        )} */}
-        <Button innerText="Entrar"></Button>
+          <Button innerText="Entrar" />
+        )}
+        {error ? <Error error={error} /> : null}
       </form>
       <Link className={styles.perdeu} to="/login/perdeu">
         Perdeu a Senha?
@@ -42,7 +41,7 @@ export default function LoginForm() {
       <div className={styles.cadastro}>
         <h2 className={styles.subtitle}>Cadastre-se</h2>
         <p>Ainda não possui conta? Cadastre-se no site.</p>
-        <Link className={stylesBtn.button} to="/login/criar">
+        <Link className={stylesBtn.button} to="/criar">
           Cadastro
         </Link>
       </div>

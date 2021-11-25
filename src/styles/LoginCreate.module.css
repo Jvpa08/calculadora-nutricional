@@ -1,0 +1,27 @@
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  height: 100vh;
+}
+
+.login::before {
+  content: "";
+  min-height: 100vh;
+  background: url("../assets/images/ImageHome.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.loginForm {
+  margin: 2rem 2rem 0 1rem;
+}
+
+@media (max-width: 40rem) {
+  .login {
+    grid-template-columns: 1fr;
+  }
+
+  .login::before {
+    display: none;
+  }
+} ;
