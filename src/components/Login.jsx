@@ -1,5 +1,4 @@
 import React from "react";
-import { auth } from "../firebaseConfig";
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginForm from "./loginComponents/LoginForm";
 /* import LoginCreate from "./LoginCreate";
@@ -7,14 +6,12 @@ import LoginPasswordLost from "./LoginPasswordLost";
 import LoginPasswordReset from "./LoginPasswordReset"; */
 import styles from "../styles/Login.module.css";
 
+import { UserContext } from "../UserContext";
+ 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const { login } = React.useContext(UserContext);
 
-  async function loginWithEmail() {
-    const response = await auth.createUserWithEmailAndPassword(email, password);
-    console.log(response)
-  }
+  if (login === true) return <Navigate to="/conta" />;
 
   return (
     <section className={styles.login}>
