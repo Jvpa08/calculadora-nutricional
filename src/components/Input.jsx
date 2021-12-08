@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/Input.module.css";
 
-export default function Input({ label, type, value, setValue, error, onChange, onBlur }) {
+export default function Input({ label, type, value, error, onChange, onBlur }) {
   return (
       <div className={styles.wrapper}>
           <label className={styles.label}>

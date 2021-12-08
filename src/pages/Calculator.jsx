@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "../styles/Calculator.module.css";
-
 import Input from "../components/InputCalculator";
 import Select from "../components/Select";
 import Button from "../components/Button";
+import { UserContext } from "../UserContext";
 
-// Equaçao de Herris Benedict
+import { firestore } from "../firebaseConfig";
 
 const options = [
   "",
@@ -17,6 +17,9 @@ const options = [
 ];
 
 export default function Calculator() {
+  const { data, login } =
+    React.useContext(UserContext);
+
   const [form, setForm] = React.useState({
     sexo: "",
     idade: 0,
@@ -27,6 +30,7 @@ export default function Calculator() {
 
   const [metabolismo, setMetabolismo] = React.useState(null);
   const [error, setError] = React.useState(false);
+
 
   function metabolismoBasal(form) {
     const [idade, altura, peso] = [
@@ -87,6 +91,7 @@ export default function Calculator() {
     if (itsOk) setMetabolismo(metabolismoBasal(form));
   }
 
+
   return (
     <div className={styles.page}>
       <section className={styles.calculator}>
@@ -138,7 +143,11 @@ export default function Calculator() {
             <p style={{ color: "red" }}>Digite valores válidos!</p>
           ) : null}
           <Button innerText="Calcular" onClick={handleSubmit} center="center" />
-          {metabolismo !== null ? <p className={styles.result}>Suas calorias de manutenção são: <strong>{metabolismo}</strong></p> : null}
+          {metabolismo !== null ? (
+            <p className={styles.result}>
+              Suas calorias de manutenção são: <strong>{metabolismo}</strong>
+            </p>
+          ) : null}
         </form>
       </section>
     </div>

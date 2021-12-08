@@ -19,14 +19,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/criar" element={<LoginCreate />} />
           <Route path="/calculadora" element={<Calculator />} />
-          <Route 
-            path="/conta" 
+          <Route
+            path="/conta"
             element={
               <PrivateRoute>
                 <MyAccount />
               </PrivateRoute>
-          } 
-        />
+            }
+          />
         </Routes>
         <Footer />
       </UserStorage>
@@ -34,5 +34,5 @@ function App() {
   );
 }
 
-
 export default App;
+
