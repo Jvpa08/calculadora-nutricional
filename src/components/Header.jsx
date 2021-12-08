@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 export default function Header() {
-  const { login, data } = React.useContext(UserContext);
+  const { login, dataUser } = React.useContext(UserContext);
   let name;
   if (login) {
-    name = data.email.substring(0, data.email.indexOf("@"));
+    name = dataUser.email.substring(0, dataUser.email.indexOf("@"));
   }
 
   return (

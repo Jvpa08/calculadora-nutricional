@@ -3,7 +3,7 @@
 }
 
 .input {
-    width: 100%;
+    width: 90%;
     border: 1px solid var(--fourth-color);
     display: block;
     font-size: 1rem;

@@ -19,3 +19,4 @@ export default function InputCalculator({ type, label, id, handleChange, value }
     </label>
   );
 }
+ 

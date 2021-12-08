@@ -1,0 +1,17 @@
+.fieldset {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 1023px) {
+    .fieldset {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem
+    }
+
+    .form {
+        width: 90%;
+        margin: 0 auto;
+    }
+}

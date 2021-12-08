@@ -2,11 +2,12 @@
   height: 80vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: url('../assets/images/MadeiraBackGround.svg');
+  justify-content: space-around;
+  background: url("../assets/images/MadeiraBackGround.svg");
 }
 
 .calculator {
+  width: 37%;
   border: 3px solid var(--second-color);
   padding: 2rem;
   background-color: white;
@@ -19,4 +20,22 @@
 
 .result {
   margin-top: 2rem;
+}
+
+.squareDataUser {
+  width: 20rem;
+  height: 20rem;
+  background-color: white;
+}
+
+@media (max-width: 768px) {
+  .calculator {
+    width: 50%;
+  }
+}
+
+@media (max-width: 426px) {
+  .calculator {
+    width: 100%;
+  }
 }
