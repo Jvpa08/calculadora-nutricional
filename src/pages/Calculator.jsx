@@ -17,7 +17,7 @@ const options = [
 ];
 
 export default function Calculator() {
-  const { data, login } =
+  const { dataUser, login, metabolismoFirestore, setMetabolismoFirestore } =
     React.useContext(UserContext);
 
   const [form, setForm] = React.useState({
@@ -28,9 +28,7 @@ export default function Calculator() {
     atividade: "",
   });
 
-  const [metabolismo, setMetabolismo] = React.useState(null);
   const [error, setError] = React.useState(false);
-
 
   function metabolismoBasal(form) {
     const [idade, altura, peso] = [
@@ -85,12 +83,20 @@ export default function Calculator() {
     return true;
   }
 
+  React.useEffect(() => {
+    if (login) {
+      firestore
+        .collection("users")
+        .doc(dataUser.uid)
+        .update({ metabolismo: Number(metabolismoFirestore) });
+    }
+  }, [metabolismoFirestore]);
+
   function handleSubmit(e) {
     e.preventDefault();
     const itsOk = validate(form);
-    if (itsOk) setMetabolismo(metabolismoBasal(form));
+    if (itsOk) setMetabolismoFirestore(metabolismoBasal(form));
   }
-
 
   return (
     <div className={styles.page}>
@@ -143,9 +149,10 @@ export default function Calculator() {
             <p style={{ color: "red" }}>Digite valores válidos!</p>
           ) : null}
           <Button innerText="Calcular" onClick={handleSubmit} center="center" />
-          {metabolismo !== null ? (
+          {metabolismoFirestore !== null ? (
             <p className={styles.result}>
-              Suas calorias de manutenção são: <strong>{metabolismo}</strong>
+              Suas calorias de manutenção são:{" "}
+              <strong>{metabolismoFirestore}</strong>
             </p>
           ) : null}
         </form>
