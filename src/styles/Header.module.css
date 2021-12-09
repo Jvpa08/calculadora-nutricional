@@ -13,20 +13,48 @@
   justify-content: space-around;
   align-items: center;
   height: 4rem;
-} 
+}
 
 .menuText {
   margin-top: 8px;
 }
 
-.icon, .menuText {
-    display: flex;
-    justify-content: center;
-    width: 15rem;
+.icon {
+  display: flex;
+  justify-content: center;
+  width: 15rem;
+}
+
+.menuTextNome {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.menuButton {
+  border: transparent;
+  background: none;
+}
+
+.iconDropDown {
+  width: 1rem;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--second-color);
+  width: 5rem;
+  height: 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 @media (max-width: 425px) {
-  .icon, .menuText {
+  .icon,
+  .menuText {
     width: 4rem;
-}
+  }
 }

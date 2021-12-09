@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Route } from "react-router";
+import { Navigate } from "react-router";
 import { UserContext } from "./UserContext";
 
 export default function PrivateRoute({ children }) {

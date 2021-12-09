@@ -26,11 +26,14 @@ export default function Table({ props }) {
 
   React.useEffect(() => {
     return () => {
-      async function sendFoods() {
+      function sendFoods() {
         let userTemp = JSON.parse(window.localStorage.getItem("user"));
         userTemp.foods = JSON.parse(window.localStorage.getItem("foods"));
 
-        await firestore.collection("users").doc(dataUser.uid).set(userTemp);
+        if (userTemp !== undefined && userTemp.foods.length > 0) {
+          firestore.collection("users").doc(dataUser.uid).set(userTemp);
+        }
+
         window.localStorage.removeItem("user");
         window.localStorage.removeItem("foods");
       }
