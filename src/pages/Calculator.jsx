@@ -17,8 +17,14 @@ const options = [
 ];
 
 export default function Calculator() {
-  const { dataUser, login, metabolismoFirestore, setMetabolismoFirestore } =
-    React.useContext(UserContext);
+  const {
+    dataUser,
+    login,
+    metabolismoFirestore,
+    setMetabolismoFirestore,
+    peso,
+    setPeso,
+  } = React.useContext(UserContext);
 
   const [form, setForm] = React.useState({
     sexo: "",
@@ -29,6 +35,7 @@ export default function Calculator() {
   });
 
   const [error, setError] = React.useState(false);
+  const [calculator, setCalculator] = React.useState(false)
 
   function metabolismoBasal(form) {
     const [idade, altura, peso] = [
@@ -88,14 +95,21 @@ export default function Calculator() {
       firestore
         .collection("users")
         .doc(dataUser.uid)
-        .update({ metabolismo: Number(metabolismoFirestore) });
+        .update({
+          peso: Number(peso),
+          metabolismo: Number(metabolismoFirestore),
+        });
     }
   }, [metabolismoFirestore]);
 
   function handleSubmit(e) {
     e.preventDefault();
     const itsOk = validate(form);
-    if (itsOk) setMetabolismoFirestore(metabolismoBasal(form));
+    if (itsOk) {
+      setPeso(form.peso);
+      setMetabolismoFirestore(metabolismoBasal(form));
+      setCalculator(true)
+    }
   }
 
   return (
@@ -149,7 +163,7 @@ export default function Calculator() {
             <p style={{ color: "red" }}>Digite valores válidos!</p>
           ) : null}
           <Button innerText="Calcular" onClick={handleSubmit} center="center" />
-          {metabolismoFirestore !== null ? (
+          {calculator === true ? (
             <p className={styles.result}>
               Suas calorias de manutenção são:{" "}
               <strong>{metabolismoFirestore}</strong>

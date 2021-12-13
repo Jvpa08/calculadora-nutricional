@@ -27,7 +27,7 @@ export default function Header() {
         {login ? <MiniHeaderLogado nome={name} /> : <MiniHeader />}
       </nav>
     </header>
-  );
+  ); 
 }
 
 const MiniHeader = () => {
@@ -57,7 +57,6 @@ const MiniHeaderLogado = ({ nome }) => {
         >
           <img src={dropDown} className={styles.iconDropDown} />
         </button>
-        <span></span>
         {isActive && (
           <div className={styles.logout} onClick={() => handleLogout()}>
             Sair!
