@@ -11,6 +11,7 @@ export const UserStorage = ({ children }) => {
   const [error, setError] = React.useState(null);
   const [dataUserFirestore, setDataUserFirestore] = React.useState(null);
   const [metabolismoFirestore, setMetabolismoFirestore] = React.useState(null);
+  const [peso, setPeso] = React.useState(null);
 
   function setValuesFirestore(userCredential) {
     firestore
@@ -20,6 +21,7 @@ export const UserStorage = ({ children }) => {
         email: userCredential.email,
         foods: [{ carbo: 0, protein: 0, fat: 0, name: "Alimento" }],
         metabolismo: 0,
+        peso: 0,
       });
     getValuesFirestore(userCredential);
   }
@@ -46,8 +48,10 @@ export const UserStorage = ({ children }) => {
   }
 
   React.useEffect(() => {
-    if (dataUserFirestore)
+    if (dataUserFirestore) {
       setMetabolismoFirestore(dataUserFirestore.metabolismo);
+      setPeso(dataUserFirestore.peso);
+    }
   }, [dataUserFirestore]);
 
   function loginWithEmail(email, password) {
@@ -87,6 +91,8 @@ export const UserStorage = ({ children }) => {
         dataUserFirestore,
         metabolismoFirestore,
         setMetabolismoFirestore,
+        peso,
+        setPeso,
       }}
     >
       {children}

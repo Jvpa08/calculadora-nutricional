@@ -2,15 +2,30 @@ import React from "react";
 import MaterialTable from "material-table";
 import { firestore } from "../firebaseConfig";
 
-import { localization, options, editable } from "./MaterialTableHelper";
+import { localization, options } from "./MaterialTableHelper";
 import { UserContext } from "../UserContext";
 
-export default function Table({ props }) {
-  const { dataUser } = React.useContext(UserContext);
+export default function Table(props) {
+  const { dataUser, metabolismoFirestore, peso } =
+    React.useContext(UserContext);
   const [foods, setFoods] = React.useState([]);
-  const [currentCarbo, setCurrentCarbo] = React.useState(0);
-  const [currentProtein, setCurrentProtein] = React.useState(0);
-  const [currentFat, setCurrentFat] = React.useState(0);
+
+  React.useEffect(() => {
+    props.setEat(metabolismoFirestore + 200);
+    props.setGProtein(2.5 * peso);
+    props.setGFat(1 * peso);
+  }, [metabolismoFirestore, peso]);
+
+  React.useEffect(() => {
+    props.setGCarbo(
+      (
+        (Number(props.eat) -
+          4 * Number(props.gProtein) -
+          9 * Number(props.gFat)) /
+        4
+      ).toFixed(2)
+    );
+  }, [props.gProtein]);
 
   React.useEffect(() => {
     async function fetchFoods() {
@@ -25,12 +40,26 @@ export default function Table({ props }) {
   }, []);
 
   React.useEffect(() => {
+    window.localStorage.setItem("foods", JSON.stringify(foods));
+    props.setCurrentCarbo(0);
+    props.setCurrentProtein(0);
+    props.setCurrentFat(0);
+    if (foods) {
+      for (let i = 0; i < foods.length; i++) {
+        props.setCurrentCarbo((anterior) => anterior + foods[i].carbo);
+        props.setCurrentProtein((anterior) => anterior + foods[i].protein);
+        props.setCurrentFat((anterior) => anterior + Number(foods[i].fat));
+      }
+    }
+  }, [foods]);
+
+  React.useEffect(() => {
     return () => {
       function sendFoods() {
         let userTemp = JSON.parse(window.localStorage.getItem("user"));
         userTemp.foods = JSON.parse(window.localStorage.getItem("foods"));
-
-        if (userTemp !== undefined && userTemp.foods.length > 0) {
+        console.log(userTemp);
+        if (userTemp !== undefined && userTemp.foods.length >= 0) {
           firestore.collection("users").doc(dataUser.uid).set(userTemp);
         }
 
@@ -41,27 +70,13 @@ export default function Table({ props }) {
     };
   }, []);
 
-  React.useEffect(() => {
-    window.localStorage.setItem("foods", JSON.stringify(foods));
-    setCurrentCarbo(0);
-    setCurrentProtein(0);
-    setCurrentFat(0);
-    if (foods) {
-      for (let i = 0; i < foods.length; i++) {
-        setCurrentCarbo((anterior) => anterior + foods[i].carbo);
-        setCurrentProtein((anterior) => anterior + foods[i].protein);
-        setCurrentFat((anterior) => anterior + Number(foods[i].fat));
-      }
-    }
-  }, [foods]);
-
   const columns = [
     { title: "Alimento", field: "name" },
     { title: "Carboidrato (g)", field: "carbo" },
     { title: "Proteina (g)", field: "protein" },
     { title: "Gordura (g)", field: "fat" },
   ];
-
+  console.log(foods)
   return (
     <section>
       <MaterialTable
